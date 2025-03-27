@@ -11,9 +11,8 @@ import { FormField, Button, ButtonGroup } from "./FormElements";
 
 export function UserForm() {
   const [step, setStep] = useState(1);
-  const [hobbies, setHobbies] = useState<string[]>([""]);
 
-  const { register, handleSubmit, formState, trigger, reset, watch } =
+  const { register, handleSubmit, formState, trigger, reset, watch, setValue } =
     useForm<UserFormData>({
       resolver: zodResolver(userSchema),
       defaultValues: {
@@ -28,6 +27,7 @@ export function UserForm() {
     });
 
   const { errors, isSubmitting } = formState;
+  const hobbies = watch("hobbies");
 
   const onSubmit = async (data: UserFormData) => {
     try {
@@ -35,7 +35,6 @@ export function UserForm() {
       alert("Form submitted successfully!");
       reset();
       setStep(1);
-      setHobbies([""]);
     } catch (error) {
       console.error("Form submission error:", error);
     }
@@ -62,13 +61,13 @@ export function UserForm() {
 
   const addHobby = () => {
     if (hobbies.length < 5) {
-      setHobbies([...hobbies, ""]);
+      setValue("hobbies", [...hobbies, ""]);
     }
   };
 
   const removeHobby = (index: number) => {
     if (hobbies.length > 1) {
-      setHobbies(hobbies.filter((_, i) => i !== index));
+      setValue("hobbies", hobbies.filter((_, i) => i !== index));
     }
   };
 
