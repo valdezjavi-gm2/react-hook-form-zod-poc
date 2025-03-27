@@ -6,6 +6,7 @@ import { userSchema, type UserFormData } from "@/schemas/userSchema";
 import { useState } from "react";
 import { ErrorIcon, EyeIcon, EyeSlashIcon, TrashIcon } from "./icons";
 import { RenderCounter } from "./RenderCounter";
+import { ProgressIndicator } from "./ProgressIndicator";
 
 export function UserForm() {
   const [step, setStep] = useState(1);
@@ -80,55 +81,9 @@ export function UserForm() {
       <div className="flex-1 bg-white rounded-xl shadow-lg p-8 border border-gray-200">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Progress indicator */}
-          <div className="mb-8">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center">
-                <div
-                  className={`rounded-full h-8 w-8 flex items-center justify-center ${
-                    step === 1
-                      ? "bg-blue-600 text-white"
-                      : "bg-blue-100 text-blue-600"
-                  }`}
-                >
-                  1
-                </div>
-                <div
-                  className={`ml-2 text-sm font-medium ${
-                    step === 1 ? "text-gray-900" : "text-gray-500"
-                  }`}
-                >
-                  Account Info
-                </div>
-              </div>
-              <div className="flex-1 mx-4 h-0.5 bg-gray-200">
-                <div
-                  className={`h-full bg-blue-600 transition-all duration-300 ${
-                    step === 2 ? "w-full" : "w-0"
-                  }`}
-                />
-              </div>
-              <div className="flex items-center">
-                <div
-                  className={`rounded-full h-8 w-8 flex items-center justify-center ${
-                    step === 2
-                      ? "bg-blue-600 text-white"
-                      : "bg-blue-100 text-blue-600"
-                  }`}
-                >
-                  2
-                </div>
-                <div
-                  className={`ml-2 text-sm font-medium ${
-                    step === 2 ? "text-gray-900" : "text-gray-500"
-                  }`}
-                >
-                  Additional Info
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {step === 1 ? (
+          <ProgressIndicator currentStep={step} />
+          
+          {step === 1 && (
             /* Step 1: Account Information */
             <div className="space-y-6">
               <div>
@@ -267,7 +222,8 @@ export function UserForm() {
                 Continue to Additional Info
               </button>
             </div>
-          ) : (
+          )}
+          {step === 2 && (
             /* Step 2: Additional Information */
             <div className="space-y-6">
               {/* Address Section */}
