@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { FormState } from 'react-hook-form';
+import { UserFormData } from '@/schemas/userSchema';
 
 interface RenderCounterProps {
   className?: string;
-  formState: Record<string, any>;
+  formState: FormState<UserFormData>;
 }
 
 export function RenderCounter({ className = "", formState }: RenderCounterProps) {
