@@ -4,7 +4,7 @@ const addressSchema = z.object({
   street: z.string().min(5, "Street must be at least 5 characters"),
   city: z.string().min(2, "City must be at least 2 characters"),
   country: z.string().min(2, "Country must be at least 2 characters"),
-  zipCode: z.string().regex(/^\d{5}(-\d{4})?$/, "Invalid ZIP code format (e.g. 12345 or 12345-6789)"),
+  zipCode: z.string().regex(/^\d{4,5}(-\d{4})?$/, "Invalid ZIP code format (e.g. 1234 or 12345 or 12345-6789)"),
 });
 
 export const userSchema = z.object({
